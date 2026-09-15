@@ -17,53 +17,24 @@ namespace Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(nombre))
             {
-                throw new ArgumentNullException("El nombre no puede estar vacío.", nameof(nombre));
+                throw new ArgumentNullException(nameof(nombre), "El nombre no puede estar vacío.");
             }
             if (string.IsNullOrWhiteSpace(apellido))
             {
-                throw new ArgumentNullException("El apellido no puede estar vacío.", nameof(apellido));
+                throw new ArgumentNullException(nameof(apellido), "El apellido no puede estar vacío.");
             }
             if (edad < 17)
             {
-                throw new ArgumentOutOfRangeException("La edad debe mayor o igual a 17", nameof(edad));
+                throw new ArgumentOutOfRangeException(nameof(edad), "La edad debe mayor o igual a 17" );
             }
 
             Id = Guid.NewGuid();
+            Nombre = nombre;
+            Apellido = apellido;
+            Edad = edad;
+
 
         }
-        public void AltaMateria(string materia)
-        {
-            if (string.IsNullOrWhiteSpace(materia))
-            {
-                throw new ArgumentNullException("La materia no puede estar vacía.", nameof(materia));
-            }
-            if (_materiasInscriptas.Contains(materia))
-            {
-                throw new InvalidOperationException($"El alumno ya está inscripto en la materia {materia}.");
-            }
-
-            if (_materiasInscriptas.Count >= 3)
-            {
-                throw new InvalidOperationException("El alumno no puede inscribirse en más de 3 materias.");
-            }
-            _materiasInscriptas.Add(materia);
-        }
-        public void BajaMateria(string materia)
-        {
-            if (string.IsNullOrWhiteSpace(materia))
-            {
-                throw new ArgumentNullException("La materia no puede estar vacía.", nameof(materia));
-                string materiaNormalizada = materia.Trim();
-
-                string? encontrada = _materiasInscriptas.FirstOrDefault(m =>
-                    m.Equals(materiaNormalizada, StringComparison.OrdinalIgnoreCase));
-
-                if (encontrada is null)
-                    throw new InvalidOperationException($"El alumno no está inscripto en la materia '{materiaNormalizada}'.");
-
-                _materiasInscriptas.Remove(encontrada);
-            }
-            
-        }
+  
     }
 }

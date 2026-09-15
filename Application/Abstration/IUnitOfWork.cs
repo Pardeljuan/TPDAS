@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Application.Abstration;
 
-public interface IunitOfWork
+public interface IUnitOfWork
 {
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
