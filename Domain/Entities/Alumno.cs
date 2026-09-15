@@ -53,6 +53,15 @@ namespace Domain.Entities
             if (string.IsNullOrWhiteSpace(materia))
             {
                 throw new ArgumentNullException("La materia no puede estar vacía.", nameof(materia));
+                string materiaNormalizada = materia.Trim();
+
+                string? encontrada = _materiasInscriptas.FirstOrDefault(m =>
+                    m.Equals(materiaNormalizada, StringComparison.OrdinalIgnoreCase));
+
+                if (encontrada is null)
+                    throw new InvalidOperationException($"El alumno no está inscripto en la materia '{materiaNormalizada}'.");
+
+                _materiasInscriptas.Remove(encontrada);
             }
             
         }
