@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Queries;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,7 @@ namespace Domain.Abstractions
 {
     public interface IAlumnoRepository
     {
-        Task<Alumno> GetByIdAsync(Guid id);
-        Task AddAsync(Alumno alumno);
-        Task UpdateAsync(Alumno alumno);
-        Task DeleteAsync(Guid id);
+        Task<Alumno?> ObtenerPorIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyList<AlumnoDTO>> ListarAsync(CancellationToken cancellationToken = default);
     }
 }
